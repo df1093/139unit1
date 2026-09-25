@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>139 słówek — Unit 1: Człowiek</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F1F5F2;
+    --surface: #FFFFFF;
+    --surface-2: #E7EFE9;
+    --ink: #17241D;
+    --muted: #5C6F64;
+    --accent: #2F6F4F;
+    --accent-ink: #FFFFFF;
+    --good: #2F8F5B;
+    --good-bg: #E4F4EA;
+    --bad: #C1473A;
+    --bad-bg: #FBE9E6;
+    --highlight: #E8B93A;
+    --border: #D8E3DC;
+    --shadow: 0 1px 2px rgba(23,36,29,0.06), 0 8px 24px rgba(23,36,29,0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101B15;
+      --surface: #17251C;
+      --surface-2: #1E2F24;
+      --ink: #EAF2EC;
+      --muted: #93A69B;
+      --accent: #5FAE84;
+      --accent-ink: #0C1710;
+      --good: #5FBE86;
+      --good-bg: #17301F;
+      --bad: #E28579;
+      --bad-bg: #331E1B;
+      --highlight: #E8B93A;
+      --border: #26382D;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101B15;
+    --surface: #17251C;
+    --surface-2: #1E2F24;
+    --ink: #EAF2EC;
+    --muted: #93A69B;
+    --accent: #5FAE84;
+    --accent-ink: #0C1710;
+    --good: #5FBE86;
+    --good-bg: #17301F;
+    --bad: #E28579;
+    --bad-bg: #331E1B;
+    --highlight: #E8B93A;
+    --border: #26382D;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+  h1, h2, h3, .num, .brand {
+    font-family: "Space Grotesk", "Inter", sans-serif;
+  }
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 28px 18px 60px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    gap: 12px;
+  }
+  .brand-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+  .brand-title b { color: var(--ink); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: 28px;
+  }
+
+  /* ---- START SCREEN ---- */
+  .hero {
+    text-align: left;
+    padding: 6px 4px 26px;
+  }
+  .hero .num {
+    font-size: 84px;
+    font-weight: 700;
+    line-height: 0.95;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .hero .num-label {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 46ch;
+    margin-top: 8px;
+  }
+  .section-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    margin: 22px 0 10px;
+  }
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--ink);
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  @media (max-width: 420px) {
+    .cat-grid { grid-template-columns: 1fr; }
+    .hero .num { font-size: 64px; }
+  }
+  .cat-chip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .cat-chip small { color: var(--muted); font-weight: 400; }
+  .cat-chip.active {
+    border-color: var(--accent);
+    background: var(--good-bg);
+  }
+  .cat-chip .dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .cat-chip.active .dot { background: var(--accent); }
+
+  .btn {
+    appearance: none;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 20px;
+    font-family: "Inter", sans-serif;
+    font-size: 15.5px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.08s ease, opacity 0.15s;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+    margin-top: 26px;
+  }
+  .btn-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .btn-ghost {
+    background: var(--surface-2);
+    color: var(--ink);
+    border: 1px solid var(--border);
+  }
+
+  /* ---- QUIZ SCREEN ---- */
+  .progress-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .progress-track {
+    height: 6px;
+    background: var(--surface-2);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.25s ease;
+  }
+  .cat-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    background: var(--good-bg);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .sentence {
+    font-size: 20px;
+    line-height: 1.55;
+    font-weight: 500;
+    margin-bottom: 26px;
+  }
+  .blank {
+    display: inline-block;
+    min-width: 64px;
+    border-bottom: 2.5px solid var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+    text-align: center;
+    padding: 0 2px;
+  }
+  .options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 460px) {
+    .options { grid-template-columns: 1fr; }
+    .sentence { font-size: 18px; }
+  }
+  .option {
+    text-align: left;
+    background: var(--surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.12s, background 0.12s;
+  }
+  .option:hover:not(:disabled) { border-color: var(--accent); }
+  .option:disabled { cursor: default; }
+  .option.correct {
+    background: var(--good-bg);
+    border-color: var(--good);
+    color: var(--good);
+  }
+  .option.incorrect {
+    background: var(--bad-bg);
+    border-color: var(--bad);
+    color: var(--bad);
+  }
+  .option.reveal {
+    background: var(--good-bg);
+    border-color: var(--good);
+    color: var(--good);
+  }
+  .feedback {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 14.5px;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.good { background: var(--good-bg); color: var(--good); }
+  .feedback.bad { background: var(--bad-bg); color: var(--bad); }
+  .feedback b { font-weight: 700; }
+  .feedback .pl { color: var(--muted); display: block; margin-top: 4px; }
+  .feedback.good .pl, .feedback.bad .pl { color: inherit; opacity: 0.85; }
+
+  /* ---- RESULTS SCREEN ---- */
+  .score-hero {
+    text-align: center;
+    padding: 8px 0 8px;
+  }
+  .score-num {
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .score-total { font-size: 24px; color: var(--muted); font-weight: 600; }
+  .score-pct {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  .grade-badge {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: var(--highlight);
+    color: #3A2C05;
+    font-weight: 700;
+    font-size: 13.5px;
+  }
+  .bars {
+    margin-top: 8px;
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .bar-row:last-child { border-bottom: none; }
+  .bar-label {
+    font-size: 13px;
+    font-weight: 600;
+    width: 128px;
+    flex-shrink: 0;
+    color: var(--ink);
+  }
+  .bar-track {
+    flex: 1;
+    height: 8px;
+    background: var(--surface-2);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+  }
+  .bar-fill.weak { background: var(--bad); }
+  .bar-fill.mid { background: var(--highlight); }
+  .bar-pct {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--muted);
+    width: 38px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .review-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .review-item:last-child { border-bottom: none; }
+  .review-sentence { color: var(--muted); margin-bottom: 6px; }
+  .review-answers { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .review-tag {
+    font-weight: 600;
+  }
+  .review-tag.wrong { color: var(--bad); }
+  .review-tag.right { color: var(--good); }
+  details summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--muted);
+    list-style: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "▸ ";
+  }
+  details[open] summary::before {
+    content: "▾ ";
+  }
+  .hidden { display: none !important; }
+  .muted { color: var(--muted); }
+  .btn-row { display: flex; gap: 10px; margin-top: 22px; }
+  .btn-row .btn { margin-top: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="brand-title"><b>Unit 1 · Człowiek</b> — powtórka słownictwa</div>
+  </div>
+
+  <!-- START SCREEN -->
+  <div id="screen-start" class="card">
+    <div class="hero">
+      <div class="num" id="wordCountDisplay">139</div>
+      <div class="num-label">słówek z całego rozdziału — etapy życia, ubrania, wygląd, charakter, uczucia, umiejętności, czasowniki złożone i zwroty. Każde pytanie to zdanie lub sytuacja z luką — trzeba wybrać właściwe słowo albo zwrot, nie samo tłumaczenie.</div>
+    </div>
+
+    <div class="section-label">Liczba pytań</div>
+    <div class="chip-row" id="lengthChips">
+      <div class="chip" data-len="20">20</div>
+      <div class="chip" data-len="50">50</div>
+      <div class="chip" data-len="90">90</div>
+      <div class="chip active" data-len="139">139 (wszystkie)</div>
+    </div>
+
+    <div class="section-label">Kategorie (kliknij, aby wyłączyć)</div>
+    <div class="cat-grid" id="catGrid"></div>
+
+    <button class="btn btn-primary" id="startBtn">Zaczynam test</button>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="screen-quiz" class="card hidden">
+    <div class="progress-row">
+      <span id="progressText">Pytanie 1/100</span>
+      <span id="scoreLiveText">Wynik: 0</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="cat-tag" id="catTag">Kategoria</div>
+    <div class="sentence" id="sentenceText"></div>
+    <div class="options" id="optionsGrid"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="btn btn-primary hidden" id="nextBtn">Dalej</button>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="screen-results" class="card hidden">
+    <div class="score-hero">
+      <div><span class="score-num" id="finalScore">0</span><span class="score-total" id="finalTotal">/100</span></div>
+      <div class="score-pct" id="finalPct"></div>
+      <div class="grade-badge" id="gradeBadge"></div>
+    </div>
+
+    <div class="section-label">Wynik według kategorii</div>
+    <div class="bars" id="catBars"></div>
+
+    <div class="section-label" style="margin-top:24px;">
+      <details id="reviewDetails">
+        <summary id="reviewSummary">Zobacz błędy</summary>
+      </details>
+    </div>
+    <div id="reviewList"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="restartBtn">Nowy test</button>
+      <button class="btn btn-primary" id="retrySameBtn">Powtórz błędy</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------------------------------------------------------------
+   DATA: 100 words from Unit 1 wordlist, grouped by category.
+   Each item: en (answer as it appears in the sentence blank),
+   pl (Polish translation), sentence (English sentence with ___)
+---------------------------------------------------------------- */
+const DATA = {
+  "Etapy życia": [
+    ["bride", "panna młoda", "On their wedding day, the ___ wore a beautiful white dress."],
+    ["get engaged", "zaręczyć się", "After five years together, they decided to ___ and plan a wedding."],
+    ["go to your school prom", "iść na bal maturalny", "All the students are excited to ___ next Friday."],
+    ["groom", "pan młody", "The ___ nervously waited at the altar for his bride."],
+    ["move house", "przeprowadzić się", "We're going to ___ next month, so I'm packing all my boxes."],
+    ["move in", "wprowadzić się", "My sister is going to ___ with her boyfriend next week."],
+    ["pass a driving test", "zdać egzamin na prawo jazdy", "I finally managed to ___ after three attempts!"],
+    ["reception", "przyjęcie (weselne)", "After the wedding ceremony, guests danced all night at the ___."],
+    ["retire", "przejść na emeryturę", "My grandfather plans to ___ from his job next year."],
+    ["start a family", "założyć rodzinę", "They bought a bigger house because they want to ___."],
+    ["start a new job", "zacząć nową pracę", "I'm a bit nervous because I ___ on Monday."],
+    ["take a driving test", "podejść do egzaminu na prawo jazdy", "You need a lot of practice before you ___."],
+    ["wear a suit", "nosić garnitur", "He decided to ___ for his job interview."],
+    ["wedding", "ślub", "Over two hundred guests were invited to their ___."],
+    ["housewarming party", "parapetówka", "They invited all their friends to a ___ after moving into the new flat."],
+    ["leaving present", "prezent pożegnalny", "Her colleagues bought her a lovely ___ before she left the company."],
+    ["unpack", "rozpakować", "As soon as we arrived at the hotel, we started to ___ our suitcases."]
+  ],
+  "Ubrania i dodatki": [
+    ["belt", "pasek", "His trousers were too big, so he wore a ___ to hold them up."],
+    ["blazer", "marynarka", "She wore a smart navy ___ over her white shirt for the interview."],
+    ["coat", "płaszcz", "It's freezing outside — don't forget your ___!"],
+    ["dress", "sukienka", "She bought a beautiful red ___ for the party."],
+    ["earrings", "kolczyki", "My grandmother gave me a pair of golden ___ for my birthday."],
+    ["glasses", "okulary", "I can't read the board without my ___."],
+    ["handbag", "torebka", "She keeps her phone and keys in her ___."],
+    ["hat", "kapelusz", "He always wears a ___ to protect his head from the sun."],
+    ["hoodie", "bluza z kapturem", "It's chilly, so I put on my favourite grey ___."],
+    ["badge", "naszywka", "She sewed a scout ___ onto her jacket sleeve."],
+    ["bandana", "kolorowa chusta", "He tied a red ___ around his head before the bike ride."],
+    ["blouse", "bluzka", "She wore a white silk ___ with her black skirt."],
+    ["leather jacket", "kurtka skórzana", "He looked really cool in his black ___."],
+    ["sweater", "sweter", "It's cold today, so put on a warm ___."],
+    ["ponytail holder", "gumka do włosów", "She lost her ___ during PE, so her hair fell down."],
+    ["shorts", "krótkie spodenki", "In summer, most children wear ___ to school."],
+    ["checked shirt", "koszula w kratę", "He wore a blue ___ with jeans."],
+    ["skirt", "spódnica", "The school uniform includes a grey ___ for girls."],
+    ["long sleeves", "długie rękawy", "In winter, I prefer tops with ___."],
+    ["suit", "garnitur", "He wore a black ___ to the job interview."],
+    ["sweatshirt", "bluza", "She pulled on a comfy ___ before going for a run."],
+    ["swimsuit", "strój kąpielowy", "Don't forget to pack your ___ for the beach holiday."],
+    ["tie", "krawat", "He loosened his ___ after the long meeting."],
+    ["tights", "rajstopy", "She wore black ___ under her skirt because it was cold."],
+    ["tracksuit", "dres", "The football team wore matching blue ___ to training."],
+    ["uniform", "mundurek szkolny", "All students must wear the school ___ every day."]
+  ],
+  "Dane osobowe": [
+    ["date of birth", "data urodzenia", "Please write your ___ in the box, for example 12/05/2010."],
+    ["surname", "nazwisko", "Smith is a very common English ___."],
+    ["first name", "pierwsze imię", "My ___ is Anna, and my surname is Kowalska."],
+    ["middle name", "drugie imię", "Many English children have a ___ between their first name and surname."],
+    ["nationality", "narodowość", "Her ___ is Polish, but she lives in London."],
+    ["nickname", "pseudonim / przydomek", "Everyone at school calls me by my ___, not my real name."],
+    ["place of birth", "miejsce urodzenia", "His ___ is Kraków, but he grew up in Warsaw."]
+  ],
+  "Rzeczy osobiste": [
+    ["backpack", "plecak", "I carry all my school books in my ___."],
+    ["bracelet", "bransoletka", "She was wearing a silver ___ on her wrist."],
+    ["diary", "pamiętnik", "Every evening she writes about her day in her ___."],
+    ["headphones", "słuchawki", "He put on his ___ to listen to music on the bus."],
+    ["necklace", "naszyjnik", "She wore a beautiful golden ___ around her neck."],
+    ["ring", "pierścionek", "He gave her a diamond ___ when he proposed."],
+    ["wallet", "portfel", "I left my ___ at home, so I have no money with me."],
+    ["watch", "zegarek", "He checked his ___ to see if he was late."],
+    ["wristband", "bransoletka silikonowa", "He wore a colourful ___ to support the charity."]
+  ],
+  "Wygląd": [
+    ["beard", "broda", "My dad has grown a long grey ___ this winter."],
+    ["complexion", "cera", "She has a pale ___ and always wears sun cream."],
+    ["curly", "kręcone (włosy)", "Her hair is naturally ___, so she never needs a perm."],
+    ["dark", "ciemne (włosy)", "He has short, ___ hair and brown eyes."],
+    ["fair", "jasne (włosy)", "My little sister has ___ hair, almost white."],
+    ["freckles", "piegi", "In summer, small brown ___ appear on her nose."],
+    ["ginger", "rude (włosy)", "His hair is bright ___, just like his mother's."],
+    ["good-looking", "atrakcyjny / przystojny", "Everyone says her new boyfriend is very ___."],
+    ["handsome", "przystojny", "The actor is considered one of the most ___ men in Hollywood."],
+    ["moustache", "wąsy", "My uncle has had a thick ___ for years."],
+    ["ponytail", "kucyk", "She tied her long hair into a ___ before the race."],
+    ["slim", "szczupły", "He became much ___ after starting to run every day."],
+    ["tall", "wysoki", "My brother is very ___ — he's almost two metres!"],
+    ["fringe", "grzywka", "She cut a short ___ above her eyebrows."],
+    ["height", "wzrost", "What is your ___? I'm 1.70 metres tall."],
+    ["pretty", "ładny", "She looked very ___ in her new dress."],
+    ["skin", "skóra", "Use sun cream to protect your ___ in summer."],
+    ["wrinkles", "zmarszczki", "My grandmother has kind eyes and a few ___ around them."]
+  ],
+  "Cechy charakteru": [
+    ["bossy", "apodyktyczny", "Stop being so ___ and let other people make decisions too!"],
+    ["brave", "odważny", "It was very ___ of you to speak in front of the whole school."],
+    ["cheerful", "radosny", "She's always smiling — such a ___ person."],
+    ["clever", "bystry / zdolny", "He solved the puzzle so quickly; he's really ___."],
+    ["confident", "pewny siebie", "She walked into the interview feeling calm and ___."],
+    ["friendly", "przyjacielski", "The new student is very ___ and easy to talk to."],
+    ["generous", "hojny", "He's so ___ that he always shares his lunch with others."],
+    ["gentle", "łagodny", "The nurse spoke in a ___ voice to calm the frightened child."],
+    ["kind", "miły", "Thank you for being so ___ and helping me with my bags."],
+    ["lazy", "leniwy", "Don't be so ___ — get up and clean your room!"],
+    ["patient", "cierpliwy", "You have to be ___ with young children; they learn slowly."],
+    ["reliable", "rzetelny", "You can always count on him — he's very ___."],
+    ["lovely", "uroczy, czarujący", "What a ___ surprise — thank you so much!"],
+    ["punctual", "punktualny", "He is always ___ and never arrives late for meetings."],
+    ["quiet", "cichy, spokojny", "She's a ___ girl who prefers reading to parties."],
+    ["serious", "poważny", "He gave me a very ___ look before telling the bad news."],
+    ["sweet", "słodki", "It was so ___ of you to remember my birthday."]
+  ],
+  "Uczucia i emocje": [
+    ["anxious", "zaniepokojony", "She felt ___ before the exam and couldn't sleep."],
+    ["ashamed", "zawstydzony", "He felt ___ after he lied to his best friend."],
+    ["concerned", "zmartwiony", "My parents were ___ when I came home very late."],
+    ["curious", "ciekawski", "The little boy was ___ about how the machine worked."],
+    ["delighted", "zachwycony", "We were absolutely ___ when we heard the good news."],
+    ["disappointed", "rozczarowany", "She was ___ when her team lost the final."],
+    ["glad", "zadowolony", "I'm so ___ that you could come to my party."],
+    ["guilty", "winny", "He felt ___ for forgetting his mother's birthday."],
+    ["nervous", "nerwowy", "I always feel ___ before giving a presentation."],
+    ["satisfied", "zadowolony / usatysfakcjonowany", "The customer looked ___ with the quality of the service."],
+    ["tired", "zmęczony", "After the long trip, everyone was completely ___."],
+    ["social anxiety", "fobia społeczna", "Some teenagers suffer from ___ and find it hard to talk in groups."],
+    ["uncomfortable", "nieswój, niewygodny", "I felt really ___ when everyone stared at me."]
+  ],
+  "Umiejętności i zainteresowania": [
+    ["collect postcards", "zbierać pocztówki", "My grandmother likes to ___ from every country she visits."],
+    ["draw", "rysować", "She loves to ___ pictures of animals in her free time."],
+    ["make videos", "robić filmy wideo", "He spends hours editing and uploading ___ for his channel."],
+    ["play chess", "grać w szachy", "My brother and I often ___ after dinner."],
+    ["play a musical instrument", "grać na instrumencie", "It's a good idea to learn to ___ when you're young."],
+    ["take photos", "robić zdjęcia", "She always loves to ___ of the sunset."],
+    ["use social networks", "korzystać z serwisów społecznościowych", "Teenagers today ___ to stay in touch with friends."]
+  ],
+  "Reading (str. 6)": [
+    ["exchange trip", "wyjazd językowy", "Our school organised an ___ to France so students could practise French."],
+    ["fundraising", "zbieranie funduszy", "The students organised a ___ event to help the local hospital."],
+    ["software", "oprogramowanie", "You need to install new ___ before the programme will work."],
+    ["soup kitchen", "stołówka dla bezdomnych", "Every weekend she helps out at a local ___ for the homeless."],
+    ["volunteer", "być ochotnikiem", "He decided to ___ at the animal shelter every Saturday."],
+    ["workshop", "warsztaty", "We attended a photography ___ to learn new skills."]
+  ],
+  "Listening (str. 10)": [
+    ["embarrassed", "zakłopotany", "I felt so ___ when I tripped in front of the whole class."],
+    ["excited", "podekscytowany", "The children were ___ about their trip to the theme park."],
+    ["frightened", "przestraszony", "The little girl was ___ of the dark."],
+    ["jealous", "zazdrosny", "He felt ___ when his friend got a new phone."],
+    ["proud", "dumny", "Her parents were very ___ of her exam results."],
+    ["relaxed", "zrelaksowany", "After the holiday, I felt completely ___."]
+  ],
+  "Czasowniki złożone": [
+    ["fall out with", "poróżnić się (z kimś)", "They used to be best friends, but they ___ each other last year and haven't spoken since."],
+    ["get on well with", "być w dobrych stosunkach (z kimś)", "I really ___ my new classmates."],
+    ["go out with", "spotykać się (z kimś)", "Have you heard? Tom is going to ___ Sarah!"],
+    ["hang out", "spędzać czas, przebywać", "We usually ___ at the shopping centre on Saturdays."],
+    ["make up", "pogodzić się", "After the argument, they finally decided to ___."],
+    ["meet up with", "spotkać się (z kimś)", "Let's ___ for coffee this weekend."],
+    ["split up", "rozstać się, zerwać", "Sadly, my parents decided to ___ two years ago."]
+  ],
+  "Zwroty": [
+    ["Congratulations on getting your licence!", "Gratuluję zdobycia prawa jazdy!", "Twój przyjaciel właśnie zdał egzamin na prawo jazdy. Co mu powiesz?"],
+    ["Enjoy yourselves!", "Bawcie się dobrze!", "Twoi znajomi wychodzą na imprezę. Co im powiesz na pożegnanie?"],
+    ["Fingers crossed!", "Trzymam kciuki!", "Twoja koleżanka ma jutro ważny egzamin. Jak jej życzysz powodzenia?"],
+    ["Good luck in your new career!", "Powodzenia w nowej pracy!", "Kolega zaczyna nową pracę w przyszłym tygodniu. Co mu powiesz?"],
+    ["I hope you'll both be very happy.", "Mam nadzieję, że będziecie bardzo szczęśliwi.", "Twój kuzyn właśnie wziął ślub. Co powiesz młodej parze?"],
+    ["You'll make new friends soon.", "Wkrótce zdobędziesz nowych przyjaciół.", "Przyjaciółka martwi się przeprowadzką do nowej szkoły. Jak ją pocieszysz?"]
+  ]
+};
+
+const CATS = Object.keys(DATA);
+let ALL_ITEMS = [];
+CATS.forEach(cat => {
+  DATA[cat].forEach(([en, pl, sentence]) => {
+    ALL_ITEMS.push({ en, pl, sentence, cat });
+  });
+});
+
+let selectedCats = new Set(CATS);
+let sessionLen = 139;
+let questions = [];
+let qIndex = 0;
+let score = 0;
+let answered = false;
+let mistakes = [];
+let catStats = {}; // cat -> {correct, total}
+
+/* ---------- helpers ---------- */
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildOptions(item) {
+  const pool = DATA[item.cat].map(x => x[0]).filter(w => w !== item.en);
+  const distractors = shuffle(pool).slice(0, 3);
+  return shuffle([item.en, ...distractors]);
+}
+
+/* ---------- START SCREEN ---------- */
+const catGrid = document.getElementById('catGrid');
+CATS.forEach(cat => {
+  const el = document.createElement('div');
+  el.className = 'cat-chip active';
+  el.innerHTML = `<span><span class="dot"></span> ${cat}</span><small>${DATA[cat].length}</small>`;
+  el.addEventListener('click', () => {
+    if (selectedCats.has(cat)) {
+      if (selectedCats.size > 1) { selectedCats.delete(cat); el.classList.remove('active'); }
+    } else {
+      selectedCats.add(cat); el.classList.add('active');
+    }
+    updateWordCountDisplay();
+  });
+  catGrid.appendChild(el);
+});
+
+function availableCount() {
+  return CATS.filter(c => selectedCats.has(c)).reduce((s, c) => s + DATA[c].length, 0);
+}
+function updateWordCountDisplay() {
+  const avail = availableCount();
+  document.getElementById('wordCountDisplay').textContent = Math.min(sessionLen, avail);
+}
+
+document.querySelectorAll('#lengthChips .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#lengthChips .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    sessionLen = parseInt(chip.dataset.len, 10);
+    updateWordCountDisplay();
+  });
+});
+
+document.getElementById('startBtn').addEventListener('click', () => {
+  const pool = ALL_ITEMS.filter(it => selectedCats.has(it.cat));
+  const n = Math.min(sessionLen, pool.length);
+  questions = shuffle(pool).slice(0, n);
+  startSession(questions);
+});
+
+document.getElementById('retrySameBtn').addEventListener('click', () => {
+  if (mistakes.length === 0) {
+    document.getElementById('screen-results').classList.add('hidden');
+    document.getElementById('screen-start').classList.remove('hidden');
+    return;
+  }
+  startSession(shuffle(mistakes));
+});
+
+document.getElementById('restartBtn').addEventListener('click', () => {
+  document.getElementById('screen-results').classList.add('hidden');
+  document.getElementById('screen-start').classList.remove('hidden');
+});
+
+/* ---------- QUIZ SCREEN ---------- */
+function startSession(qs) {
+  questions = qs;
+  qIndex = 0;
+  score = 0;
+  mistakes = [];
+  catStats = {};
+  CATS.forEach(c => catStats[c] = { correct: 0, total: 0 });
+
+  document.getElementById('screen-start').classList.add('hidden');
+  document.getElementById('screen-results').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.remove('hidden');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  answered = false;
+  const item = questions[qIndex];
+  document.getElementById('progressText').textContent = `Pytanie ${qIndex + 1}/${questions.length}`;
+  document.getElementById('scoreLiveText').textContent = `Wynik: ${score}`;
+  document.getElementById('progressFill').style.width = `${(qIndex / questions.length) * 100}%`;
+  document.getElementById('catTag').textContent = item.cat;
+
+  const sentenceHtml = item.sentence.replace('___', '<span class="blank">______</span>');
+  document.getElementById('sentenceText').innerHTML = sentenceHtml;
+
+  const opts = buildOptions(item);
+  const grid = document.getElementById('optionsGrid');
+  grid.innerHTML = '';
+  opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.textContent = opt;
+    btn.addEventListener('click', () => selectAnswer(opt, item, btn));
+    grid.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback';
+  fb.innerHTML = '';
+  document.getElementById('nextBtn').classList.add('hidden');
+}
+
+function selectAnswer(chosen, item, btnEl) {
+  if (answered) return;
+  answered = true;
+  catStats[item.cat].total++;
+
+  const correct = chosen === item.en;
+  const allOptionBtns = document.querySelectorAll('#optionsGrid .option');
+  allOptionBtns.forEach(b => {
+    b.disabled = true;
+    if (b.textContent === item.en) b.classList.add('reveal');
+    if (b === btnEl && !correct) b.classList.add('incorrect');
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.classList.add('show');
+  if (correct) {
+    score++;
+    catStats[item.cat].correct++;
+    fb.classList.add('good');
+    fb.innerHTML = `<b>Dobrze!</b><span class="pl">${item.en} — ${item.pl}</span>`;
+  } else {
+    mistakes.push(item);
+    fb.classList.add('bad');
+    fb.innerHTML = `<b>Poprawna odpowiedź: ${item.en}</b><span class="pl">${item.pl}</span>`;
+  }
+
+  document.getElementById('scoreLiveText').textContent = `Wynik: ${score}`;
+  document.getElementById('nextBtn').classList.remove('hidden');
+}
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+  qIndex++;
+  if (qIndex >= questions.length) {
+    showResults();
+  } else {
+    renderQuestion();
+  }
+});
+
+/* ---------- RESULTS SCREEN ---------- */
+function gradeFor(pct) {
+  if (pct >= 95) return "6 — celujący";
+  if (pct >= 85) return "5 — bardzo dobry";
+  if (pct >= 70) return "4 — dobry";
+  if (pct >= 55) return "3 — dostateczny";
+  if (pct >= 40) return "2 — dopuszczający";
+  return "1 — niedostateczny";
+}
+
+function showResults() {
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-results').classList.remove('hidden');
+
+  const total = questions.length;
+  const pct = Math.round((score / total) * 100);
+  document.getElementById('finalScore').textContent = score;
+  document.getElementById('finalTotal').textContent = `/${total}`;
+  document.getElementById('finalPct').textContent = `${pct}% poprawnych odpowiedzi`;
+  document.getElementById('gradeBadge').textContent = gradeFor(pct);
+
+  const barsEl = document.getElementById('catBars');
+  barsEl.innerHTML = '';
+  CATS.forEach(cat => {
+    const st = catStats[cat];
+    if (!st || st.total === 0) return;
+    const p = Math.round((st.correct / st.total) * 100);
+    const cls = p >= 75 ? '' : (p >= 45 ? 'mid' : 'weak');
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML = `
+      <div class="bar-label">${cat}</div>
+      <div class="bar-track"><div class="bar-fill ${cls}" style="width:${p}%"></div></div>
+      <div class="bar-pct">${st.correct}/${st.total}</div>
+    `;
+    barsEl.appendChild(row);
+  });
+
+  const reviewSummary = document.getElementById('reviewSummary');
+  const reviewList = document.getElementById('reviewList');
+  const reviewDetails = document.getElementById('reviewDetails');
+  reviewList.innerHTML = '';
+  document.getElementById('retrySameBtn').textContent = mistakes.length ? `Powtórz błędy (${mistakes.length})` : 'Brak błędów 🎉';
+  document.getElementById('retrySameBtn').disabled = mistakes.length === 0;
+
+  if (mistakes.length === 0) {
+    reviewSummary.textContent = 'Brak błędów — świetna robota!';
+    reviewDetails.open = false;
+  } else {
+    reviewSummary.textContent = `Zobacz błędy (${mistakes.length})`;
+    mistakes.forEach(m => {
+      const div = document.createElement('div');
+      div.className = 'review-item';
+      div.innerHTML = `
+        <div class="review-sentence">${m.sentence.replace('___', '<b>' + m.en + '</b>')}</div>
+        <div class="review-answers"><span class="review-tag right">${m.en}</span><span class="muted">— ${m.pl}</span></div>
+      `;
+      reviewList.appendChild(div);
+    });
+  }
+}
+
+updateWordCountDisplay();
+</script>
+</body>
+</html>
